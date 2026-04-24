@@ -49,10 +49,12 @@ app.get('/api/auth/google/callback', async (req, res) => {
 
         const userData = userResponse.data;
 
+        // Verificação de domínio do email com o gmail em conjunto para melhores testes.
         const DOMINIO_PERMITIDO = ['@ifc.edu.br', '@gmail.com'];
         if (!DOMINIO_PERMITIDO.some(domain => userData.email.endsWith(domain))) {
             return res.redirect(`${process.env.FRONTEND_URL}?error=dominio_invalido`);
         }
+        //
 
         const internalToken = jwt.sign(
             { 
